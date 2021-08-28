@@ -40,7 +40,7 @@
     },
   };
 
-  const settings = {
+  const settings = { //eslint-disable-line no-unused-vars
     amountWidget: {
       defaultValue: 1,
       defaultMin: 1,
@@ -58,7 +58,8 @@
       thisProduct.id = id;
       thisProduct.data = data;
       thisProduct.renderInMenu();
-      console.log('new product', thisProduct);
+      thisProduct.initAccordion();
+      //console.log('new product', thisProduct);
     }
     renderInMenu(){
       const thisProduct = this;
@@ -67,12 +68,28 @@
       const menuContainer = document.querySelector(select.containerOf.menu);
       menuContainer.appendChild(thisProduct.element);
     }
+    initAccordion(){
+      const thisArticle = this.element;
+      const thisArticleHeader = thisArticle.querySelector(select.menuProduct.clickable);
+      thisArticleHeader.addEventListener('click', function(e){
+        e.preventDefault();
+        const thisArticleIsActive = thisArticle.classList.contains(classNames.menuProduct.wrapperActive);
+        const activeArticle = document.querySelector(select.all.menuProductsActive);
+        if(activeArticle){
+          activeArticle.classList.remove(classNames.menuProduct.wrapperActive);
+        }
+        if(!thisArticleIsActive){
+          thisArticle.classList.add(classNames.menuProduct.wrapperActive);
+        }
+      });
+    }
   }
+
 
   const app = {
     initMenu: function(){
       const thisApp = this;
-      console.log('thisApp.data', thisApp.data);
+      //console.log('thisApp.data', thisApp.data);
       for(let productData in thisApp.data.products){
         new Product(productData, thisApp.data.products[productData]);
       }
@@ -83,11 +100,11 @@
     },
     init: function(){
       const thisApp = this;
-      console.log('*** App starting ***');
+      /*console.log('*** App starting ***');
       console.log('thisApp:', thisApp);
       console.log('classNames:', classNames);
       console.log('settings:', settings);
-      console.log('templates:', templates);
+      console.log('templates:', templates);*/
       thisApp.initData();
       thisApp.initMenu();
     },
