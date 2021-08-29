@@ -40,12 +40,13 @@
     },
   };
 
-  const settings = { //eslint-disable-line no-unused-vars
+  const settings = {
     amountWidget: {
       defaultValue: 1,
       defaultMin: 1,
       defaultMax: 9,
-    }
+    },
+    errorMessage: 'Form error occurred. Please, refresh site and try again.'
   };
 
   const templates = {
@@ -78,6 +79,7 @@
       thisProduct.formInputs = thisProduct.form.querySelectorAll(select.all.formInputs);
       thisProduct.cartButton = thisProduct.element.querySelector(select.menuProduct.cartButton);
       thisProduct.priceElem = thisProduct.element.querySelector(select.menuProduct.priceElem);
+      thisProduct.imageWrapper = thisProduct.element.querySelector(select.menuProduct.imageWrapper);
     }
     initAccordion(){
       const thisProduct = this;
@@ -119,25 +121,32 @@
           for(let optionId in paramOptions) {
             const option = paramOptions[optionId];
             const isOptionDefault = option.default;
-            if(isOptionDefault) {
-              if(!formValuesList.includes(optionId)){
-                price -= option.price;
+            const optionImage = thisProduct.imageWrapper.querySelector(`.${paramId}-${optionId}`);
+            if(formValuesList.includes(optionId)) {
+              if(optionImage) {
+                optionImage.classList.add(classNames.menuProduct.imageVisible);
+              }
+              if(!isOptionDefault){
+                price += option.price;
               }
             }
             else {
-              if(formValuesList.includes(optionId)) {
-                price += option.price;
+              if(optionImage) {
+                optionImage.classList.remove(classNames.menuProduct.imageVisible);
+              }
+              if(isOptionDefault) {
+                price -= option.price;
               }
             }
           }
         } else {
-          alert('Form error occurred. Please, refresh site and try again.');
+          alert(settings.errorMessage);
+          return;
         }
       }
       thisProduct.priceElem.innerHTML = price;
     }
   }
-
 
   const app = {
     initMenu: function(){
