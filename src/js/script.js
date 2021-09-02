@@ -61,6 +61,7 @@
       thisProduct.renderInMenu();
       thisProduct.getElements();
       thisProduct.initOrderForm();
+      thisProduct.initAmountWidget();
       thisProduct.processOrder();
       thisProduct.initAccordion();
     }
@@ -79,6 +80,7 @@
       thisProduct.cartButton = thisProduct.element.querySelector(select.menuProduct.cartButton);
       thisProduct.priceElem = thisProduct.element.querySelector(select.menuProduct.priceElem);
       thisProduct.imageWrapper = thisProduct.element.querySelector(select.menuProduct.imageWrapper);
+      thisProduct.amountWidgetElem = thisProduct.element.querySelector(select.menuProduct.amountWidget);
     }
     initAccordion(){
       const thisProduct = this;
@@ -92,6 +94,13 @@
         if(!isThisProductActive){
           thisProduct.element.classList.add(classNames.menuProduct.wrapperActive);
         }
+      });
+    }
+    initAmountWidget(){
+      const thisProduct = this;
+      thisProduct.amountWidget = new AmountWidget(thisProduct.amountWidgetElem);
+      thisProduct.amountWidgetElem.addEventListener('updated', function(){
+        thisProduct.processOrder();
       });
     }
     initOrderForm(){
@@ -142,7 +151,72 @@
           return;
         }
       }
-      thisProduct.priceElem.innerHTML = price;
+      thisProduct.priceElem.innerHTML = price * thisProduct.amountWidget.value;
+    }
+  }
+
+  class AmountWidget {
+    constructor(element){
+      const thisWidget = this;
+      thisWidget.getElements(element);
+      thisWidget.setValue(settings.amountWidget.defaultValue);
+      thisWidget.initActions();
+    }
+    getElements(element){
+      const thisWidget = this;
+      thisWidget.element = element;
+      thisWidget.input = thisWidget.element.querySelector(select.widgets.amount.input);
+      thisWidget.linkDecrease = thisWidget.element.querySelector(select.widgets.amount.linkDecrease);
+      thisWidget.linkIncrease = thisWidget.element.querySelector(select.widgets.amount.linkIncrease);
+    }
+    setValue(value){
+      const thisWidget = this;
+      const newValue = parseInt(value);
+      if(newValue !== thisWidget.value){
+        if(newValue && newValue >= settings.amountWidget.defaultMin && newValue <= settings.amountWidget.defaultMax){
+          thisWidget.value = newValue;
+          thisWidget.announce();
+        }
+        thisWidget.input.value = thisWidget.value;
+      }
+    }
+
+    /*Question for my Mentor. What is better: a code above (easier to read, shorter)
+    or below (it doesn't force browser to render input value when there is no need to do this)*/
+
+    /*setValue(value){
+          const thisWidget = this;
+          const newValue = parseInt(value);
+          if(newValue !== thisWidget.value){
+            if(newValue && newValue >= settings.amountWidget.defaultMin && newValue <= settings.amountWidget.defaultMax){
+              thisWidget.value = newValue;
+              if(thisWidget.input.value !== newValue){
+                thisWidget.input.value = newValue;
+              }
+            } else {
+              thisWidget.input.value = thisWidget.value;
+            }
+          }
+        }*/
+
+    initActions(){
+      const thisWidget = this;
+      thisWidget.input.addEventListener('change', function(){
+        thisWidget.setValue(this.value);
+      });
+      thisWidget.linkDecrease.addEventListener('click', function(e){
+        e.preventDefault();
+        thisWidget.setValue(thisWidget.value - 1);
+      });
+      thisWidget.linkIncrease.addEventListener('click', function(e){
+        e.preventDefault();
+        thisWidget.setValue(thisWidget.value + 1);
+      });
+    }
+    announce(){
+      const thisWidget = this;
+      const evt = new Event('updated');
+      thisWidget.element.dispatchEvent(evt);
     }
   }
 
