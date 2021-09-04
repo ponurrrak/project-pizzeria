@@ -195,13 +195,14 @@
     }
     prepareCartProduct(){
       const thisProduct = this;
-      const productSummary = {};
-      productSummary.id = thisProduct.id;
-      productSummary.name = thisProduct.data.name;
-      productSummary.amount = thisProduct.amountWidget.value;
-      productSummary.priceSingle = thisProduct.priceSingle;
-      productSummary.price = thisProduct.priceTotal;
-      productSummary.params = thisProduct.cartProductParams;
+      const productSummary = {
+        id: thisProduct.id,
+        name: thisProduct.data.name,
+        amount: thisProduct.amountWidget.value,
+        priceSingle: thisProduct.priceSingle,
+        price: thisProduct.priceTotal,
+        params: thisProduct.cartProductParams
+      };
       return productSummary;
     }
   }
@@ -281,6 +282,8 @@
       const generatedHTML = templates.cartProduct(menuProduct);
       const generatedDOM = utils.createDOMFromHTML(generatedHTML);
       thisCart.dom.productList.appendChild(generatedDOM);
+      thisCart.products.push(menuProduct);
+      console.log(thisCart.products);
     }
   }
 
