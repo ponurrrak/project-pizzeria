@@ -68,7 +68,7 @@
       defaultMin: 1,
       defaultMax: 9,
     },
-    errorMessage: 'Form error occurred. Please, refresh site and try again.',
+    errorMessage: 'Some error occurred. Please, refresh site and try again.',
     cart: {
       defaultDeliveryFee: 20,
     },
@@ -299,7 +299,9 @@
       });
       thisCart.dom.form.addEventListener('submit', function(e){
         e.preventDefault();
-        thisCart.sendOrder();
+        if(thisCart.products.length > 0){
+          thisCart.sendOrder();
+        }
       });
     }
     add(menuProduct){
@@ -336,8 +338,10 @@
       const thisCart = this;
       cartProductToRemove.dom.wrapper.remove();
       const startAtIndex = thisCart.products.indexOf(cartProductToRemove);
-      thisCart.products.splice(startAtIndex, 1);
-      thisCart.update();
+      if(startAtIndex >= 0){
+        thisCart.products.splice(startAtIndex, 1);
+        thisCart.update();
+      }
     }
     sendOrder(){
       const thisCart = this;
@@ -363,10 +367,27 @@
       };
       fetch(url, options)
         .then(function(rawResponse){
-          return rawResponse.json();
+          if(rawResponse.status >= 200 && rawResponse.status < 300){
+            return rawResponse.json();
+          } else {
+            return Promise.reject();
+          }
         })
         .then(function(parsedResponse){
-          console.log('parsedResponse', parsedResponse);
+          let message = `Your order no ${parsedResponse.id}, including:`;
+          for(let product of parsedResponse.products){
+            message += ` ${product.name} (x${product.amount}),`;
+          }
+          message += ` for global price ${parsedResponse.totalPrice}$ has been accepted, but... `;
+          message += 'our site is still under construction, so you will have to wait a bit ;)';
+          alert(message);
+          while(thisCart.products.length > 0){
+            thisCart.remove(thisCart.products.pop());
+          }
+          thisCart.update();
+        })
+        .catch(function(){
+          alert(settings.errorMessage);
         });
     }
   }
