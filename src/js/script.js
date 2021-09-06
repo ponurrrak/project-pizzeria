@@ -343,6 +343,13 @@
         thisCart.update();
       }
     }
+    clearCart(){
+      const thisCart = this;
+      while(thisCart.products.length > 0){
+        thisCart.remove(thisCart.products.pop());
+      }
+      thisCart.update();
+    }
     sendOrder(){
       const thisCart = this;
       const url = settings.db.url + '/' + settings.db.orders;
@@ -381,13 +388,11 @@
           message += ` for global price ${parsedResponse.totalPrice}$ has been accepted, but... `;
           message += 'our site is still under construction, so you will have to wait a bit ;)';
           alert(message);
-          while(thisCart.products.length > 0){
-            thisCart.remove(thisCart.products.pop());
-          }
-          thisCart.update();
+          thisCart.clearCart();
         })
         .catch(function(){
           alert(settings.errorMessage);
+          thisCart.clearCart();
         });
     }
   }
