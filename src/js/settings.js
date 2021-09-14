@@ -14,6 +14,9 @@ export const select = {
     menuProducts: '#product-list > .product',
     menuProductsActive: '#product-list > .product.active',
     formInputs: 'input, select',
+    checkboxInputs: 'input[type="checkbox"]',
+    radioInputs: 'input[type="radio"]',
+    selectElements: 'select'
   },
   menuProduct: {
     clickable: '.product__header',

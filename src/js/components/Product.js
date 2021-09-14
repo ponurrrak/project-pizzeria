@@ -27,6 +27,9 @@ class Product {
     thisProduct.accordionTrigger = thisProduct.element.querySelector(select.menuProduct.clickable);
     thisProduct.form = thisProduct.element.querySelector(select.menuProduct.form);
     thisProduct.formInputs = thisProduct.form.querySelectorAll(select.all.formInputs);
+    thisProduct.formCheckboxInputs = thisProduct.form.querySelectorAll(select.all.checkboxInputs);
+    thisProduct.formRadioInputs = thisProduct.form.querySelectorAll(select.all.radioInputs);
+    thisProduct.selectElements = thisProduct.form.querySelectorAll(select.all.selectElements);
     thisProduct.cartButton = thisProduct.element.querySelector(select.menuProduct.cartButton);
     thisProduct.priceElem = thisProduct.element.querySelector(select.menuProduct.priceElem);
     thisProduct.imageWrapper = thisProduct.element.querySelector(select.menuProduct.imageWrapper);
@@ -66,6 +69,7 @@ class Product {
       event.preventDefault();
       thisProduct.processOrder();
       thisProduct.addToCart();
+      thisProduct.clearProductToDefaults();
     });
   }
   processOrder(){
@@ -134,6 +138,31 @@ class Product {
       params: thisProduct.cartProductParams
     };
     return productSummary;
+  }
+  clearProductToDefaults(){
+    const thisProduct = this;
+    for(const checkbox of thisProduct.formCheckboxInputs){
+      if(thisProduct.data.params[checkbox.name].options[checkbox.value].default){
+        checkbox.checked = true;
+      } else {
+        checkbox.checked = false;
+      }
+    }
+    for(const radio of thisProduct.formRadioInputs){
+      if(thisProduct.data.params[radio.name].options[radio.value].default){
+        radio.checked = true;
+        break;
+      }
+    }
+    for(const selectElement of thisProduct.selectElements){
+      for(const option of selectElement.options){
+        if(thisProduct.data.params[selectElement.name].options[option.value].default){
+          option.selected = true;
+          break;
+        }
+      }
+    }
+    thisProduct.amountWidget.setValue(settings.amountWidget.defaultValue);
   }
 }
 
