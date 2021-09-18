@@ -20,8 +20,8 @@ class Cart {
       totalNumber: element.querySelector(select.cart.totalNumber),
       totalPrice: element.querySelectorAll(select.cart.totalPrice),
       form: element.querySelector(select.cart.form),
-      address: element.querySelector(select.cart.address),
-      phone: element.querySelector(select.cart.phone)
+      address: element.querySelector(select.all.address),
+      phone: element.querySelector(select.all.phone)
     };
   }
   initActions(){

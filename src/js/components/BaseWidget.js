@@ -35,7 +35,7 @@ class BaseWidget{
     return parseInt(value);
   }
   isValid(value){
-    return !!value;
+    return !isNaN(value);
   }
   renderValue(){
     const thisWidget = this;

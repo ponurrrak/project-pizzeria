@@ -68,6 +68,17 @@ utils.addDays = function(dateStr, days){
   return dateObj;
 };
 
+utils.lookForEventTarget = function(event, targetSelector){
+  for(const element of event.path){
+    if(element === event.currentTarget){
+      return;
+    }
+    if(element.matches(targetSelector)){
+      return element;
+    }
+  }
+};
+
 Handlebars.registerHelper('ifEquals', function(arg1, arg2, options) {
   return (arg1 == arg2) ? options.fn(this) : options.inverse(this);
 });

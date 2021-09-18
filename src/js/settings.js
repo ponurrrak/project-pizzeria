@@ -16,7 +16,9 @@ export const select = {
     formInputs: 'input, select',
     checkboxInputs: 'input[type="checkbox"]',
     radioInputs: 'input[type="radio"]',
-    selectElements: 'select'
+    selectElements: 'select',
+    phone: '[name="phone"]',
+    address: '[name="address"]',
   },
   menuProduct: {
     clickable: '.product__header',
@@ -51,8 +53,6 @@ export const select = {
     deliveryFee: '.cart__order-delivery .cart__order-price-sum strong',
     form: '.cart__order',
     formSubmit: '.cart__order [type="submit"]',
-    phone: '[name="phone"]',
-    address: '[name="address"]',
   },
   cartProduct: {
     amountWidget: '.widget-amount',
@@ -61,9 +61,12 @@ export const select = {
     remove: '[href="#remove"]',
   },
   booking: {
+    form: '.booking-form',
     peopleAmount: '.people-amount',
     hoursAmount: '.hours-amount',
+    floorPlan: '.floor-plan',
     tables: '.floor-plan .table',
+    starters: '[name="starter"]'
   },
   nav: {
     links: '.main-nav a',
@@ -81,6 +84,7 @@ export const classNames = {
   booking: {
     loading: 'loading',
     tableBooked: 'booked',
+    userBookedTable: 'user-booked'
   },
   nav: {
     active: 'active',
@@ -106,8 +110,8 @@ export const settings = {
     orders: 'orders',
     product: 'product',
     order: 'order',
-    booking: 'booking',
-    event: 'event',
+    bookings: 'bookings',
+    events: 'events',
     dateStartParamKey: 'date_gte',
     dateEndParamKey: 'date_lte',
     notRepeatParam: 'repeat=false',
@@ -122,6 +126,7 @@ export const settings = {
   },
   booking: {
     tableIdAttribute: 'data-table',
+    failedBookingInfo: 'Sorry, the table You\'ve tried to book is not available at given time because of another reservation that starts at '
   },
 };
 
