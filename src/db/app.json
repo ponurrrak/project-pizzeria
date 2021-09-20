@@ -266,5 +266,82 @@
      "ppl": 3,
      "starters": []
    }
- ]
+ ],
+ "home": {
+   "carousel": [
+      {
+        "photoLink": "images/pizza-3.jpg",
+        "photoAlt": "pizza",
+        "articleTitle": "Delicious Food",
+        "articleText": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed laoreet magna at ipsum mollis commodo. Ut eget arcu nec turpis pretium lacinia sit amet ut velit.",
+        "articleAuthor": "Rupert Sasanov"
+      },
+      {
+        "photoLink": "images/pizza-3.jpg",
+        "photoAlt": "pizza",
+        "articleTitle": "Great Venue",
+        "articleText": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed laoreet magna at ipsum mollis commodo. Ut eget arcu nec turpis pretium lacinia sit amet ut velit.",
+        "articleAuthor": "Kira Jira"
+      },
+      {
+        "photoLink": "images/pizza-3.jpg",
+        "photoAlt": "pizza",
+        "articleTitle": "Good snacks",
+        "articleText": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed laoreet magna at ipsum mollis commodo. Ut eget arcu nec turpis pretium lacinia sit amet ut velit.",
+        "articleAuthor": "Max Minimal"
+      },
+      {
+        "photoLink": "images/pizza-3.jpg",
+        "photoAlt": "pizza",
+        "articleTitle": "Best service",
+        "articleText": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed laoreet magna at ipsum mollis commodo. Ut eget arcu nec turpis pretium lacinia sit amet ut velit.",
+        "articleAuthor": "Jennifer Psycho"
+      }
+    ],
+    "openingHours": "Tue-Sun, 12PM-24AM",
+    "navButtons": [
+      {
+        "header": "Order online",
+        "text": "Delicious food delivered next to your door",
+        "link": "#order",
+        "photoLink": "images/pizza-1.jpg",
+        "photoAlt": "pizza",
+        "class": "order-button"
+      },
+      {
+        "header": "Book a table",
+        "text": "Enjoy a great venue",
+        "link": "#booking",
+        "photoLink": "images/pizza-2.jpg",
+        "photoAlt": "pizza",
+        "class": "booking-button"
+      }
+    ],
+    "gallery": [
+    {
+      "photoLink": "images/pizza-4.jpg",
+      "photoAlt": "pizza"
+    },
+    {
+      "photoLink": "images/pizza-5.jpg",
+      "photoAlt": "pizza"
+    },
+    {
+      "photoLink": "images/pizza-6.jpg",
+      "photoAlt": "pizza"
+    },
+    {
+      "photoLink": "images/pizza-7.jpg",
+      "photoAlt": "pizza"
+    },
+    {
+      "photoLink": "images/pizza-8.jpg",
+      "photoAlt": "pizza"
+    },
+    {
+      "photoLink": "images/pizza-9.jpg",
+      "photoAlt": "pizza"
+    }
+  ]
+  }
 }

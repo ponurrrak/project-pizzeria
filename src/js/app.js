@@ -2,6 +2,7 @@ import {select, settings, classNames} from './settings.js';
 import Product from './components/Product.js';
 import Cart from './components/Cart.js';
 import Booking from './components/Booking.js';
+import Home from './components/Home.js';
 
 const app = {
   initPages: function(){
@@ -48,6 +49,11 @@ const app = {
       new Product(productData.id, productData);
     }
   },
+  initHome: function(){
+    const thisApp = this;
+    const homeContainer = document.querySelector(select.containerOf.home);
+    thisApp.home = new Home(homeContainer, thisApp);
+  },
   initBooking: function(){
     const thisApp = this;
     const bookingContainer = document.querySelector(select.containerOf.booking);
@@ -61,23 +67,32 @@ const app = {
       thisApp.cart.add(e.detail.product);
     });
   },
-  initData: function(){
+  initData: function(endpoint, callback){
     const thisApp = this;
-    const url = settings.db.url + '/' + settings.db.products;
-    thisApp.data = {};
+    const url = settings.db.url + '/' + endpoint;
     fetch(url)
       .then(function(rawResponse){
         return rawResponse.json();
       })
       .then(function(parsedResponse){
-        thisApp.data.products = parsedResponse;
-        thisApp.initMenu();
+        thisApp.data[endpoint] = parsedResponse;
+        callback.call(thisApp);
       });
+  },
+  initProductData: function(){
+    const thisApp = this;
+    thisApp.initData(settings.db.products, thisApp.initMenu);
+  },
+  initHomeData: function(){
+    const thisApp = this;
+    thisApp.initData(settings.db.home, thisApp.initHome);
   },
   init: function(){
     const thisApp = this;
+    thisApp.data = {};
     thisApp.initPages();
-    thisApp.initData();
+    thisApp.initHomeData();
+    thisApp.initProductData();
     thisApp.initCart();
     thisApp.initBooking();
   },

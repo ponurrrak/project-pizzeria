@@ -173,9 +173,6 @@ class Booking{
     return true;
   }
   notAvailableTableInfo(hourNotAvailable){
-    const thisBooking = this;
-    thisBooking.hourPicker.value = hourNotAvailable;
-    thisBooking.hoursAmountWidget.value = settings.amountWidget.defaultValue;
     hourNotAvailable = utils.numberToHour(hourNotAvailable);
     const message = settings.booking.failedBookingInfo + hourNotAvailable + '.';
     alert(message);
