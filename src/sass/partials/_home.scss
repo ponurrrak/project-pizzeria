@@ -73,18 +73,18 @@
       display: flex;
       height: calc(50% + 40px);
       flex-direction: column;
-      transition: All 1s;
+      transition: all 1s;
     }
 
     h3 {
       margin-bottom: auto;
-      transition: All 1s;
+      transition: all 1s;
     }
 
     p {
       margin-top: auto;
       margin-bottom: 0;
-      transition: All 1s;
+      transition: all 1s;
     }
 
     &:hover {
